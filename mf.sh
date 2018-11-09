@@ -5,4 +5,5 @@ source "${bindir}/.env"
 
 cd "${bindir}"
 #espeak "firefoxy node binary path ${NODE_BINARY_PATH}"
-"${NODE_BINARY_PATH}" ./index.js "${1}"
+espeak "Adding magnetlink" &
+espeak $("${NODE_BINARY_PATH}" ./index.js "${1}" | jq .msg | cut -d '-' -f2)
