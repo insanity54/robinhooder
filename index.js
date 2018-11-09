@@ -2,12 +2,28 @@
 
 require('dotenv').config()
 
-const path = require('path')
+const ruTorrentAddress = process.env.RUTORRENT_ADDRESS
+const ruTorrentPassword = process.env.RUTORRENT_PASSWORD
+const ruTorrentUsername = process.env.RUTORRENT_USERNAME
+const magnetLink = process.argv[2]
+var showElectronWindow = process.env.MF_SHOW
+
+if (typeof magnetLink === 'undefined' || magnetLink === '')
+  throw new Error('First CLI argument (magnetLink) was undefined!')
+if (typeof ruTorrentAddress === 'undefined')
+  throw new Error('RUTORRENT_ADDRESS is undefined in env')
+if (typeof ruTorrentPassword === 'undefined')
+  throw new Error('RUTORRENT_PASSWORD is undefined in env')
+if (typeof ruTorrentUsername === 'undefined')
+  throw new Error('RUTORRENT_USERNAME is undefined in env')
+if (typeof showElectronWindow === 'undefined') showElectronWindow = false
+
 const Nightmare = require('nightmare')
 const nightmare = Nightmare({
-  show: true,
+  show: (showElectronWindow === 'true'),
   typeInterval: 1
 });
+const path = require('path')
 const bunyan = require('bunyan')
 var log = bunyan.createLogger({
   name: 'magnet-forwarder',
@@ -20,23 +36,9 @@ var log = bunyan.createLogger({
     },
   ]
 });
-const ruTorrentAddress = process.env.RUTORRENT_ADDRESS
-const ruTorrentPassword = process.env.RUTORRENT_PASSWORD
-const ruTorrentUsername = process.env.RUTORRENT_USERNAME
-const magnetLink = process.argv[2]
 
 log.debug('received argv as follows')
 log.debug(process.argv)
-
-if (typeof magnetLink === 'undefined')
-  throw new Error('First CLI argument (magnetLink) was undefined!')
-if (typeof ruTorrentAddress === 'undefined')
-  throw new Error('RUTORRENT_ADDRESS is undefined in env')
-if (typeof ruTorrentPassword === 'undefined')
-  throw new Error('RUTORRENT_PASSWORD is undefined in env')
-if (typeof ruTorrentUsername === 'undefined')
-  throw new Error('RUTORRENT_USERNAME is undefined in env')
-
 
 
 nightmare
