@@ -17,8 +17,10 @@ RUTORRENT_USERNAME=insanity54
 RUTORRENT_ADDRESS=https://myseedbox.example.com/rutorrent/
 DEBUG=nightmare:actions*
 NODE_BINARY_PATH=/home/insanity54/.nvm/versions/node/v8.12.0/bin/node
-MF_SHOW=true
+MF_SHOW=false
 ```
+
+(set MF_SHOW to true if you are running into problems)
 
 Configure Firefox to use mf.sh for magnet:// urls. Easiest way to do this is to fin and click a magnet link in firefox, then use the dialog to Browse to magnet-forwarder.sh. Alternatively, check the Applications section in Firefox settings.
 
